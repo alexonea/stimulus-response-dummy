@@ -34,6 +34,8 @@ namespace SRDummy
     EAST,
   };
 
+  extern std::ostream& operator<<(std::ostream& os, Action a);
+
   template <typename T, std::size_t N>
   extern Action stimulusResponse(const T (&vFeatures) [N]);
 

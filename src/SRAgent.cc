@@ -22,6 +22,21 @@
 
 namespace SRDummy
 {
+  std::ostream&
+  operator<<
+  (std::ostream& os, Action a)
+  {
+    switch (a)
+    {
+      case GO_NORTH:  return os << "NORTH";
+      case GO_EAST:   return os << "EAST";
+      case GO_SOUTH:  return os << "SOUTH";
+      case GO_WEST:   return os << "WEST";
+    }
+
+    return os << "INVALID";
+  }
+
   template <>
   Action
   stimulusResponse
