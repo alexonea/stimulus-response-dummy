@@ -45,7 +45,21 @@ namespace SRDummy
     Surface() = default;
 
     Surface& operator<<(const Coordinate& c);
+
+    /*
+     * Returns true if the surface is closed (i.e. the first and the last
+     * coordinates are the same), or if the surface has only one point
+     * specified, in which case it is really just a point.
+     */
     bool  isComplete() const noexcept;
+
+    /*
+     * Returns true if the surface is closed or it is not closed but the first
+     * coordinate and the last coordinate allign on one of the axis, so that
+     * a closing edge can be deduced, even though it has not been specified.
+     * 
+     * See above for what "complete" means.
+     */
     bool  canClose  () const noexcept;
   private:
     std::vector<Coordinate> m_vCoordinates;
