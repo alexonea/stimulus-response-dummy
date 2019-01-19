@@ -72,8 +72,8 @@ namespace SRDummy
   World::WorldImpl::isValidCoordinate
   (const Coordinate& c)
   {
-    return (c.first >= 0 && c.first < m_nCols &&
-            c.second >=0 && c.second < m_nRows);
+    return (c.first >= 0 && c.first < m_nRows &&
+            c.second >=0 && c.second < m_nCols);
   }
 
   std::size_t
