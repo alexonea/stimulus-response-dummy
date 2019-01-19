@@ -40,6 +40,10 @@ namespace SRDummy
     WorldImpl& operator=(WorldImpl&& other) noexcept;
 
     void swap(WorldImpl& other) noexcept;
+
+    bool isValidCoordinate(const Coordinate& c);
+    std::size_t toPos(const Coordinate& c);
+    std::size_t toPos(std::size_t iX, std::size_t iY);
   private:
     std::size_t m_nRows;
     std::size_t m_nCols;

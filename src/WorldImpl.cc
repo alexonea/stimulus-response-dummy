@@ -67,4 +67,26 @@ namespace SRDummy
     m_nCols = other.m_nCols;
     m_vCells.swap(other.m_vCells);
   }
+  
+  bool
+  World::WorldImpl::isValidCoordinate
+  (const Coordinate& c)
+  {
+    return (c.first >= 0 && c.first < m_nCols &&
+            c.second >=0 && c.second < m_nRows);
+  }
+
+  std::size_t
+  World::WorldImpl::toPos
+  (const Coordinate& c)
+  {
+    return (c.first * m_nCols + c.second);
+  }
+
+  std::size_t
+  World::WorldImpl::toPos
+  (std::size_t iX, std::size_t iY)
+  {
+    return (iX * m_nCols + iY);
+  }
 }
