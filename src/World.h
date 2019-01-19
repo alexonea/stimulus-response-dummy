@@ -25,10 +25,10 @@
 #include <memory>
 
 #include "Common.h"
+#include "Surface.h"
 
 namespace SRDummy
 {
-
   class World
   {
   public:
@@ -40,6 +40,8 @@ namespace SRDummy
 
     World(World&& other);
     World& operator=(World&& other);
+
+    bool addSolidObject(const Surface& area);
 
     std::string toString() const;
   private:
