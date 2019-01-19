@@ -26,13 +26,14 @@
 
 #include "Common.h"
 #include "Surface.h"
+#include "SRAgent.h"
 
 namespace SRDummy
 {
   class World
   {
   public:
-    World(std::size_t nRows, std::size_t nCols);
+    World(std::size_t nRows, std::size_t nCols, const Coordinate& agent);
     ~World();
 
     World(const World& other);
@@ -42,12 +43,16 @@ namespace SRDummy
     World& operator=(World&& other);
 
     bool addSolidObject(const Surface& area);
+    void updatePercept(bool (&percept) [8]);
+    bool performAction(Action next);
 
     std::string toString() const;
   private:
     class WorldImpl;
     using WorldImplRef = std::unique_ptr<WorldImpl>;
     WorldImplRef m_pImpl;
+
+    Coordinate   m_agentPosition;
   };
 }
 

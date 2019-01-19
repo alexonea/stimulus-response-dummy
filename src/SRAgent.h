@@ -23,15 +23,18 @@
 
 #include <vector>
 #include <stdexcept>
+#include <ostream>
+
+#include "Common.h"
 
 namespace SRDummy
 {
   enum Action
   {
-    NORTH = 0,
-    WEST,
-    SOUTH,
-    EAST,
+    GO_NORTH = NORTH,
+    GO_WEST = WEST,
+    GO_SOUTH = SOUTH,
+    GO_EAST = EAST,
   };
 
   extern std::ostream& operator<<(std::ostream& os, Action a);

@@ -24,16 +24,12 @@
 #include "Surface.h"
 #include "World.h"
 
-int
-main
-(int argc, char const *argv[])
+using namespace SRDummy;
+
+void
+prepareWorld
+(World& w)
 {
-  using namespace SRDummy;
-
-  std::cout << "Welcome to this demo of a stimulus-response agent!\n";
-
-  World w{11, 14};
-
   {
     Surface s;
     s << Coordinate{0, 13}
@@ -98,8 +94,38 @@ main
     if (!w.addSolidObject(s))
       std::cerr << "[ERROR] Cannot fill solid object!\n";      
   }
-  
-  std::cout << w.toString();
+}
+
+int
+main
+(int argc, char const *argv[])
+{
+  std::cout << "Welcome to this demo of a stimulus-response agent!\n";
+
+  World w{11, 14, {0, 0}};
+
+  prepareWorld(w);
+
+  bool vbPercept[8];
+  bool bContinue = true;
+
+  do
+  {
+    w.updatePercept(vbPercept);
+    Action next = stimulusResponse(vbPercept);
+
+    std::cout << w.toString();
+    std::cout << "Percept:";
+    for (const bool b : vbPercept)
+      std::cout << " " << b;
+    std::cout << "\n";
+    std::cout << "Agent has chosen the following action: " << next << "\n";
+    std::cin.get();
+
+    bContinue = w.performAction(next);
+  } while (bContinue);
+
+  std::cout << "Game over!\n";
 
   return 0;
 }

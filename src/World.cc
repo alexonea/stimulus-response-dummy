@@ -27,8 +27,9 @@
 namespace SRDummy
 {
   World::World
-  (std::size_t nRows, std::size_t nCols)
+  (std::size_t nRows, std::size_t nCols, const Coordinate& agent)
   : m_pImpl{new WorldImpl{nRows, nCols}}
+  , m_agentPosition{agent}
   {}
 
   World::~World()
@@ -259,6 +260,45 @@ namespace SRDummy
     return true;
   }
 
+  void
+  World::updatePercept
+  (bool (&percept) [8])
+  {
+    Coordinate south      = getCoordinate(m_agentPosition, SOUTH);
+    Coordinate southeast  = getCoordinate(m_agentPosition, SOUTHEAST);
+    Coordinate southwest  = getCoordinate(m_agentPosition, SOUTHWEST);
+    Coordinate north      = getCoordinate(m_agentPosition, NORTH);
+    Coordinate northeast  = getCoordinate(m_agentPosition, NORTHEAST);
+    Coordinate northwest  = getCoordinate(m_agentPosition, NORTHWEST);
+    Coordinate east       = getCoordinate(m_agentPosition, EAST);
+    Coordinate west       = getCoordinate(m_agentPosition, WEST);
+    
+    percept[0] = !m_pImpl->isEmpty(northwest);
+    percept[1] = !m_pImpl->isEmpty(north);
+    percept[2] = !m_pImpl->isEmpty(northeast);
+    percept[3] = !m_pImpl->isEmpty(east);
+    percept[4] = !m_pImpl->isEmpty(southeast);
+    percept[5] = !m_pImpl->isEmpty(south);
+    percept[6] = !m_pImpl->isEmpty(southwest);
+    percept[7] = !m_pImpl->isEmpty(west);
+  }
+
+  bool
+  World::performAction
+  (Action next)
+  {
+    Direction nextDirection = static_cast<Direction> (next);
+    Coordinate nextCoord = getCoordinate(m_agentPosition, nextDirection);
+
+    if (m_pImpl->isEmpty(nextCoord))
+    {
+      m_agentPosition = nextCoord;
+      return true;
+    }
+
+    return false;
+  }
+
   std::string
   World::toString
   () const
@@ -266,6 +306,8 @@ namespace SRDummy
     std::stringstream ss;
 
     const std::size_t nSize = m_pImpl->m_nRows * m_pImpl->m_nCols;
+    const std::size_t iAgent =
+      m_agentPosition.first * m_pImpl->m_nCols + m_agentPosition.second;
 
     for (std::size_t iPos = 0; iPos <= m_pImpl->m_nCols; ++iPos)
       ss << "#";
@@ -275,7 +317,10 @@ namespace SRDummy
       if (iPos % m_pImpl->m_nCols == 0)
         ss << "#\n#";
 
-      ss << m_pImpl->m_vCells[iPos];
+      if (iAgent == iPos)
+        ss << 'X';
+      else
+        ss << m_pImpl->m_vCells[iPos];
     }
 
     ss << "#\n#";

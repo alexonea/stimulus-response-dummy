@@ -40,8 +40,25 @@ namespace SRDummy
   template <>
   Action
   stimulusResponse
-  (const bool (&vFeatures) [6])
+  (const bool (&vFeatures) [8])
   {
-    return NORTH;
+    bool bX1 = (vFeatures[1] || vFeatures[2]);
+    bool bX2 = (vFeatures[3] || vFeatures[4]);
+    bool bX3 = (vFeatures[5] || vFeatures[6]);
+    bool bX4 = (vFeatures[7] || vFeatures[0]);
+
+    if (bX1 && !bX2)
+      return GO_EAST;
+
+    if (bX2 && !bX3)
+      return GO_SOUTH;
+
+    if (bX3 && !bX4)
+      return GO_WEST;
+
+    if (bX4 && !bX1)
+      return GO_NORTH;
+
+    return GO_NORTH;
   }
 }
