@@ -1,4 +1,5 @@
 set(SOURCES
+  Surface.cc
   Common.cc
   SRAgent.cc
   World.cc
