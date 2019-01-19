@@ -1,4 +1,5 @@
 set(SOURCES
+  Common.cc
   SRAgent.cc
   World.cc
   WorldImpl.cc

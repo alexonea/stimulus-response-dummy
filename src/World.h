@@ -22,16 +22,13 @@
 #define SRC_WORLD_H 1
 
 #include <string>
-#include <ostream>
 #include <memory>
 
 #include "WorldImpl.h"
+#include "Common.h"
 
 namespace SRDummy
 {
-
-  extern char toText(CellType eType);
-  extern std::ostream& operator<<(std::ostream& os, CellType eType);
 
   class World
   {

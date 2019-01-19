@@ -24,25 +24,6 @@
 
 namespace SRDummy
 {
-  char
-  toText
-  (CellType eType)
-  {
-    switch (eType)
-    {
-      case EMPTY: return ' ';
-      case WALL: return '#';
-      default: return '?';
-    }
-  }
-
-  std::ostream&
-  operator<<
-  (std::ostream& os, CellType eType)
-  {
-    return os << toText(eType);
-  }
-
   World::World
   (std::size_t nRows, std::size_t nCols)
   : m_pImpl{new WorldImpl{nRows, nCols}}
