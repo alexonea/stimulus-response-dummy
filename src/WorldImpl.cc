@@ -22,22 +22,22 @@
 
 namespace SRDummy
 {
-  WorldImpl::WorldImpl
+  World::WorldImpl::WorldImpl
   (std::size_t nRows, std::size_t nCols)
   : m_nRows{nRows}
   , m_nCols{nCols}
   , m_vCells{nRows * nCols, EMPTY}
   {}
 
-  WorldImpl::WorldImpl
+  World::WorldImpl::WorldImpl
   (const WorldImpl& other)
   : m_nRows{other.m_nRows}
   , m_nCols{other.m_nCols}
   , m_vCells{other.m_vCells}
   {}
 
-  WorldImpl&
-  WorldImpl::operator=
+  World::WorldImpl&
+  World::WorldImpl::operator=
   (const WorldImpl& other)
   {
     m_nRows   = other.m_nRows;
@@ -45,22 +45,22 @@ namespace SRDummy
     m_vCells  = other.m_vCells;
   }
 
-  WorldImpl::WorldImpl
+  World::WorldImpl::WorldImpl
   (WorldImpl&& other) noexcept
   : m_nRows{other.m_nRows}
   , m_nCols{other.m_nCols}
   , m_vCells{std::move(other.m_vCells)}
   {}
 
-  WorldImpl&
-  WorldImpl::operator=
+  World::WorldImpl&
+  World::WorldImpl::operator=
   (WorldImpl&& other) noexcept
   {
     swap(other);
   }
 
   void
-  WorldImpl::swap
+  World::WorldImpl::swap
   (WorldImpl& other) noexcept
   {
     m_nRows = other.m_nRows;

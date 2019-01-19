@@ -24,9 +24,11 @@
 #include <vector>
 
 #include "Common.h"
+#include "World.h"
+
 namespace SRDummy
 {
-  class WorldImpl
+  class World::WorldImpl
   {
   public:
     WorldImpl(std::size_t nRows, std::size_t nCols);

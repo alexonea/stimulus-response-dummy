@@ -24,7 +24,6 @@
 #include <string>
 #include <memory>
 
-#include "WorldImpl.h"
 #include "Common.h"
 
 namespace SRDummy
@@ -34,9 +33,17 @@ namespace SRDummy
   {
   public:
     World(std::size_t nRows, std::size_t nCols);
+    ~World();
+
+    World(const World& other);
+    World& operator=(const World& other);
+
+    World(World&& other);
+    World& operator=(World&& other);
 
     std::string toString() const;
   private:
+    class WorldImpl;
     using WorldImplRef = std::unique_ptr<WorldImpl>;
     WorldImplRef m_pImpl;
   };

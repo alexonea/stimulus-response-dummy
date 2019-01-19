@@ -18,7 +18,7 @@
  *
  */
 
-#include "World.h"
+#include "WorldImpl.h"
 
 #include <sstream>
 
@@ -28,6 +28,40 @@ namespace SRDummy
   (std::size_t nRows, std::size_t nCols)
   : m_pImpl{new WorldImpl{nRows, nCols}}
   {}
+
+  World::~World()
+  {
+    /*
+     * We need an empty destructor here, where WorldImpl is a complete type,
+     * otherwise the compiler cannot generate a destructor for the World class
+     * only based on the declaration, because WorldImpl is an incomplete type
+     * in the declaration.
+     */
+  }
+
+  World::World
+  (const World& other)
+  : m_pImpl{new WorldImpl{*other.m_pImpl}}
+  {}
+
+  World&
+  World::operator=
+  (const World& other)
+  {
+    m_pImpl.reset(new WorldImpl{*other.m_pImpl});
+  }
+
+  World::World
+  (World&& other)
+  : m_pImpl{std::move(other.m_pImpl)}
+  {}
+
+  World&
+  World::operator=
+  (World&& other)
+  {
+    m_pImpl.swap(other.m_pImpl);
+  }
 
   std::string
   World::toString
