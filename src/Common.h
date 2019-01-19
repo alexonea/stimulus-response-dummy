@@ -22,6 +22,7 @@
 #define SRC_COMMON_H 1
 
 #include <ostream>
+#include <utility>
 
 namespace SRDummy
 {
@@ -33,6 +34,8 @@ namespace SRDummy
 
   extern char toText(CellType eType);
   extern std::ostream& operator<<(std::ostream& os, CellType eType);
+
+  using Coordinate = std::pair<std::size_t, std::size_t>;
 }
 
 #endif
