@@ -32,10 +32,23 @@ namespace SRDummy
     WALL,
   };
 
+  enum Direction
+  {
+    SOUTH = 0,
+    SOUTHWEST,
+    WEST,
+    NORTHWEST,
+    NORTH,
+    NORTHEAST,
+    EAST,
+    SOUTHEAST,
+  };
+
   extern char toText(CellType eType);
   extern std::ostream& operator<<(std::ostream& os, CellType eType);
 
   using Coordinate = std::pair<std::size_t, std::size_t>;
+  extern Coordinate getCoordinate(const Coordinate& current, Direction dir);
 }
 
 #endif

@@ -40,4 +40,24 @@ namespace SRDummy
   {
     return os << toText(eType);
   }
+
+  Coordinate
+  getCoordinate
+  (const Coordinate& current, Direction dir)
+  {
+    Coordinate next = current;
+    switch (dir)
+    {
+      case SOUTH:     next.first++;                 break;
+      case SOUTHEAST: next.first++; next.second++;  break;
+      case SOUTHWEST: next.first++; next.second--;  break;
+      case NORTH:     next.first--;                 break;
+      case NORTHEAST: next.first--; next.second++;  break;
+      case NORTHWEST: next.first--; next.second--;  break;
+      case EAST:                    next.second++;  break;
+      case WEST:                    next.second--;  break;
+    }
+
+    return next;
+  }
 }
