@@ -33,5 +33,7 @@ main
 
   World w{10, 10};
 
+  std::cout << w.toString();
+
   return 0;
 }

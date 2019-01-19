@@ -20,11 +20,62 @@
 
 #include "World.h"
 
+#include <sstream>
+
 namespace SRDummy
 {
+  char
+  toText
+  (CellType eType)
+  {
+    switch (eType)
+    {
+      case EMPTY: return ' ';
+      case WALL: return '#';
+      default: return '?';
+    }
+  }
+
+  std::ostream&
+  operator<<
+  (std::ostream& os, CellType eType)
+  {
+    return os << toText(eType);
+  }
+
   World::World
-  (unsigned nRows, unsigned nCols)
+  (std::size_t nRows, std::size_t nCols) noexcept
   : m_nRows{nRows}
   , m_nCols{nCols}
+  , m_vCells{nRows * nCols, EMPTY}
   {}
+
+  std::string
+  World::toString
+  () const
+  {
+    std::stringstream ss;
+
+    const std::size_t nSize = m_nRows * m_nCols;
+
+    for (std::size_t iPos = 0; iPos <= m_nCols; ++iPos)
+      ss << "#";
+
+    for (std::size_t iPos = 0; iPos < nSize; ++iPos)
+    {
+      if (iPos % m_nCols == 0)
+        ss << "#\n#";
+
+      ss << m_vCells[iPos];
+    }
+
+    ss << "#\n#";
+
+    for (std::size_t iPos = 0; iPos <= m_nCols; ++iPos)
+      ss << "#";
+
+    ss << "\n";
+
+    return ss.str();
+  }
 }

@@ -21,15 +21,33 @@
 #ifndef SRC_WORLD_H
 #define SRC_WORLD_H 1
 
+#include <string>
+#include <vector>
+#include <ostream>
+
 namespace SRDummy
 {
+  enum CellType
+  {
+    EMPTY = 0,
+    WALL,
+  };
+
+  extern char toText(CellType eType);
+  extern std::ostream& operator<<(std::ostream& os, CellType eType);
+
   class World
   {
   public:
-    World(unsigned nRows, unsigned nCols);
+    World(std::size_t nRows, std::size_t nCols) noexcept;
+
+    std::string toString() const;
   private:
-    unsigned m_nRows;
-    unsigned m_nCols;
+    std::size_t m_nRows;
+    std::size_t m_nCols;
+
+    using CellRepr = std::vector<CellType>;
+    CellRepr    m_vCells;
   };
 }
 
