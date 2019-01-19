@@ -41,6 +41,7 @@ namespace SRDummy
 
     void swap(WorldImpl& other) noexcept;
 
+    bool isEmpty(const Coordinate& c);
     bool isValidCoordinate(const Coordinate& c);
     std::size_t toPos(const Coordinate& c);
     std::size_t toPos(std::size_t iX, std::size_t iY);

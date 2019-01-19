@@ -76,6 +76,13 @@ namespace SRDummy
             c.second >=0 && c.second < m_nCols);
   }
 
+  bool
+  World::WorldImpl::isEmpty
+  (const Coordinate& c)
+  {
+    return (isValidCoordinate(c) && (m_vCells[toPos(c)] == EMPTY));
+  }
+
   std::size_t
   World::WorldImpl::toPos
   (const Coordinate& c)
