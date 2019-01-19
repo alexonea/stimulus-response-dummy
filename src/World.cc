@@ -44,10 +44,8 @@ namespace SRDummy
   }
 
   World::World
-  (std::size_t nRows, std::size_t nCols) noexcept
-  : m_nRows{nRows}
-  , m_nCols{nCols}
-  , m_vCells{nRows * nCols, EMPTY}
+  (std::size_t nRows, std::size_t nCols)
+  : m_pImpl{new WorldImpl{nRows, nCols}}
   {}
 
   std::string
@@ -56,22 +54,22 @@ namespace SRDummy
   {
     std::stringstream ss;
 
-    const std::size_t nSize = m_nRows * m_nCols;
+    const std::size_t nSize = m_pImpl->m_nRows * m_pImpl->m_nCols;
 
-    for (std::size_t iPos = 0; iPos <= m_nCols; ++iPos)
+    for (std::size_t iPos = 0; iPos <= m_pImpl->m_nCols; ++iPos)
       ss << "#";
 
     for (std::size_t iPos = 0; iPos < nSize; ++iPos)
     {
-      if (iPos % m_nCols == 0)
+      if (iPos % m_pImpl->m_nCols == 0)
         ss << "#\n#";
 
-      ss << m_vCells[iPos];
+      ss << m_pImpl->m_vCells[iPos];
     }
 
     ss << "#\n#";
 
-    for (std::size_t iPos = 0; iPos <= m_nCols; ++iPos)
+    for (std::size_t iPos = 0; iPos <= m_pImpl->m_nCols; ++iPos)
       ss << "#";
 
     ss << "\n";

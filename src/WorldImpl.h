@@ -1,5 +1,5 @@
 /*
- *  World.h
+ *  WorldImpl.h
  *
  *  Copyright (C) 2019 Alexandru N. Onea <alexandru.onea@toporcomputing.com>
  *
@@ -18,30 +18,39 @@
  *
  */
 
-#ifndef SRC_WORLD_H
-#define SRC_WORLD_H 1
+#ifndef SRC_WORLDIMPL_H
+#define SRC_WORLDIMPL_H 1
 
-#include <string>
-#include <ostream>
-#include <memory>
-
-#include "WorldImpl.h"
+#include <vector>
 
 namespace SRDummy
 {
+  enum CellType
+  {
+    EMPTY = 0,
+    WALL,
+  };
 
-  extern char toText(CellType eType);
-  extern std::ostream& operator<<(std::ostream& os, CellType eType);
-
-  class World
+  class WorldImpl
   {
   public:
-    World(std::size_t nRows, std::size_t nCols);
+    WorldImpl(std::size_t nRows, std::size_t nCols);
 
-    std::string toString() const;
+    WorldImpl(const WorldImpl& other);
+    WorldImpl& operator=(const WorldImpl& other);
+
+    WorldImpl(WorldImpl&& other) noexcept;
+    WorldImpl& operator=(WorldImpl&& other) noexcept;
+
+    void swap(WorldImpl& other) noexcept;
   private:
-    using WorldImplRef = std::unique_ptr<WorldImpl>;
-    WorldImplRef m_pImpl;
+    std::size_t m_nRows;
+    std::size_t m_nCols;
+
+    using CellRepr = std::vector<CellType>;
+    CellRepr    m_vCells;
+
+    friend class World;
   };
 }
 
