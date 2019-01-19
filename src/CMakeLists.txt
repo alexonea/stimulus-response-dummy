@@ -1,5 +1,6 @@
 set(SOURCES
   SRAgent.cc
+  World.cc
   main.cpp
 )
 

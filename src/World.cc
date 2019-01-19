@@ -1,5 +1,5 @@
 /*
- *  main.cpp
+ *  World.cc
  *
  *  Copyright (C) 2019 Alexandru N. Onea <alexandru.onea@toporcomputing.com>
  *
@@ -18,20 +18,13 @@
  *
  */
 
-#include <iostream>
-
-#include "SRAgent.h"
 #include "World.h"
 
-int
-main
-(int argc, char const *argv[])
+namespace SRDummy
 {
-  using namespace SRDummy;
-
-  std::cout << "Welcome to this demo of a stimulus-response agent!\n";
-
-  World w{10, 10};
-
-  return 0;
+  World::World
+  (unsigned nRows, unsigned nCols)
+  : m_nRows{nRows}
+  , m_nCols{nCols}
+  {}
 }
